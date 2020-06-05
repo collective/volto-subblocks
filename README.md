@@ -198,9 +198,7 @@ class Edit extends SubblocksEdit {
 export default React.memo(withDNDContext(Edit))
 ```
 
-.
-
-### SubblockEdit
+### SubblockEdit
 
 The edit component of the subblock must extend the class SubblockEdit
 
