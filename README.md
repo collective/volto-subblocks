@@ -205,7 +205,7 @@ The edit component of the subblock must extend the class SubblockEdit
 If you want to enable drag&drop to reorder subblocks, you have to return content from this function:
 
 ```jsx
-return this.props.connectDropTarget(this.props.connectDragPreview(this.props.connectDragSource(<></>)))
+return this.props.connectDropTarget(this.props.connectDragPreview(this.props.connectDragSource(<>here the content</>)))
 ```
 
 and compose with DNDSubblocks.
