@@ -1,0 +1,44 @@
+.volto-subblocks .button.add-element {
+    padding: 0.5rem 1rem !important;
+    background-color: #007eb1;
+    color: #fff;
+    font-size: 1rem !important;
+}
+
+.volto-subblocks .button.add-element:hover {
+    background-color: #045475;
+}
+
+.volto-subblocks .basic.delete-button {
+    left: 0;
+    margin-right: 0 !important;
+    margin-left: 1em !important;
+}
+
+.volto-subblocks .basic.delete-button svg {
+    fill: #000 !important;
+}
+
+.volto-subblocks .isDragging {
+    border: 1px solid #9bd0e1;
+    border-radius: 5px;
+}
+
+.volto-subblocks .dragsubblock {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #b8c6c8;
+}
+
+.volto-subblocks .dragsubblock:hover {
+    color: #007eb1;
+}
+
+.volto-subblocks .single-block {
+    position: relative;
+}
+
+.volto-subblocks .single-block .dragsubblock {
+    top: -20px;
+}
