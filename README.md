@@ -198,8 +198,8 @@ class Edit extends SubblocksEdit {
 export default React.memo(withDNDContext(Edit))
 ```
 
-`
 ### SubblockEdit
+
 The edit component of the subblock must extend the class SubblockEdit
 
 If you want to enable drag&drop to reorder subblocks, you have to return content from this function:
