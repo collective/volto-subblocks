@@ -113,8 +113,10 @@ The edit component of the parent block must extend the class `SubblocksEdit`.
 
 In the `render()` function of this component, you have to iterate on `this.state.subblocks` to draw subblocks.
 
-You could insert the add button simply writing `{this.renderAddBlockButton()}`
-You could insert the remove button for each subblock, simply writing `{this.renderDeleteBlockButton(subindex)}` where 'subindex' is the index of subblock.
+#### Usage
+
+- You could insert the add button simply writing `{this.renderAddBlockButton()}`
+- You could insert the remove button for each subblock, simply writing `{this.renderDeleteBlockButton(subindex)}` where 'subindex' is the index of subblock.
 
 - `this.state.subblocks`: contains subblocks. Used to iterate on subblocks
 - `this.state.subIndexSelected`: contains the index of the current selected subblock
@@ -128,18 +130,18 @@ You could insert the remove button for each subblock, simply writing `{this.rend
 
 #### Example
 
-````jsx
+```jsx
 /**
  * Edit icons block.
  * @module components/manage/Blocks/IconsBlocks/Edit
  */
 
-import React from 'react';
-import { Grid } from 'semantic-ui-react';
-import { SubblocksEdit, withDNDContext } from 'volto-subblocks';
-import { SidebarPortal } from '@plone/volto/components';
-import EditBlock from './Block/EditBlock';
-import Sidebar from './Sidebar';
+import React from 'react'
+import { Grid } from 'semantic-ui-react'
+import { SubblocksEdit, withDNDContext } from 'volto-subblocks'
+import { SidebarPortal } from '@plone/volto/components'
+import EditBlock from './Block/EditBlock'
+import Sidebar from './Sidebar'
 /**
  * Edit icons block class.
  * @class Edit
@@ -153,14 +155,14 @@ class Edit extends SubblocksEdit {
    */
   render() {
     if (__SERVER__) {
-      return <div />;
+      return <div />
     }
 
     return (
       <div
         className="volto-subblocks"
-        ref={(node) => {
-          this.node = node;
+        ref={node => {
+          this.node = node
         }}
       >
         <Grid stackable columns="equal" verticalAlign="top">
@@ -170,13 +172,9 @@ class Edit extends SubblocksEdit {
                 <EditBlock
                   data={subblock}
                   index={subindex}
-                  selected={
-                    this.props.selected &&
-                    this.state.subIndexSelected === subindex
-                  }
+                  selected={this.props.selected && this.state.subIndexSelected === subindex}
                   block={this.props.block}
                   openObjectBrowser={this.props.openObjectBrowser}
-
                   onChangeBlock={this.onChangeSubblocks}
                   onChangeFocus={this.onSubblockChangeFocus}
                   onDelete={this.deleteSubblock}
@@ -185,9 +183,7 @@ class Edit extends SubblocksEdit {
               </Grid.Column>
             ))}
 
-            {this.props.selected && (
-              <Grid.Column>{this.renderAddBlockButton()}</Grid.Column>
-            )}
+            {this.props.selected && <Grid.Column>{this.renderAddBlockButton()}</Grid.Column>}
           </Grid.Row>
         </Grid>
         <SidebarPortal selected={this.props.selected}>
@@ -200,48 +196,46 @@ class Edit extends SubblocksEdit {
           />
         </SidebarPortal>
       </div>
-    );
+    )
   }
 }
 
-export default React.memo(withDNDContext(Edit));
-``
-
+export default React.memo(withDNDContext(Edit))
+```
 
 ### SubblockEdit
 The edit component of the subblock must extend the class SubblockEdit
 
 If you want to enable drag&drop to reorder subblocks, you have to return content from this function:
-* this.props.connectDropTarget
-* this.props.connectDragPreview
-* this.props.connectDragSource
-and compose with DNDSubblocks.
 
-* `this.onChange(obj)` to call when the subblock changes. *obj* is the object of subblock with new values
-* `this.onFocus(event)` to call when subblock receive focus
-* `this.focusNode()` to call when you focus the subblock
-* `this.renderDNDButton()` renders drag & drop button for subblock.
-* `this.renderDeleteButton()` renders delete button to delete subblock.
+- this.props.connectDropTarget
+- this.props.connectDragPreview
+- this.props.connectDragSource
+  and compose with DNDSubblocks.
 
-
+- `this.onChange(obj)` to call when the subblock changes. _obj_ is the object of subblock with new values
+- `this.onFocus(event)` to call when subblock receive focus
+- `this.focusNode()` to call when you focus the subblock
+- `this.renderDNDButton()` renders drag & drop button for subblock.
+- `this.renderDeleteButton()` renders delete button to delete subblock.
 
 #### Example
+
 ```jsx
 /**
  * Edit text block.
  * @module components/manage/Blocks/Title/Edit
  */
 
-import React from 'react';
-import { compose } from 'redux';
-import cx from 'classnames';
-import { Placeholder } from 'semantic-ui-react';
-import { injectIntl, defineMessages } from 'react-intl';
-import { SubblockEdit, DNDSubblocks } from 'volto-subblocks';
+import React from 'react'
+import { compose } from 'redux'
+import cx from 'classnames'
+import { Placeholder } from 'semantic-ui-react'
+import { injectIntl, defineMessages } from 'react-intl'
+import { SubblockEdit, DNDSubblocks } from 'volto-subblocks'
 
-
-import { TextEditorWidget } from '@package/components';
-import ViewIcon from './ViewIcon';
+import { TextEditorWidget } from '@package/components'
+import ViewIcon from './ViewIcon'
 
 const messages = defineMessages({
   iconPlaceholder: {
@@ -252,7 +246,7 @@ const messages = defineMessages({
     id: 'Description placeholder',
     defaultMessage: 'Description...',
   },
-});
+})
 /**
  * Edit text block class.
  * @class Edit
@@ -266,12 +260,12 @@ class EditBlock extends SubblockEdit {
    * @constructs WysiwygEditor
    */
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       focusOn: 'description',
-    };
+    }
     if (!this.props.data.block_style) {
-      this.props.data.block_style = 'underline';
+      this.props.data.block_style = 'underline'
     }
   }
 
@@ -282,7 +276,7 @@ class EditBlock extends SubblockEdit {
    */
   render() {
     if (__SERVER__) {
-      return <div />;
+      return <div />
     }
 
     return this.props.connectDropTarget(
@@ -293,8 +287,8 @@ class EditBlock extends SubblockEdit {
               isDragging: this.props.isDragging,
             })}
             onFocus={this.onFocus}
-            ref={(node) => {
-              this.node = node;
+            ref={node => {
+              this.node = node
             }}
           >
             {this.renderDNDButton()}
@@ -313,17 +307,15 @@ class EditBlock extends SubblockEdit {
               selected={this.state.focusOn === 'description'}
               block={this.props.block}
               onChangeBlock={this.onChange}
-              placeholder={this.props.intl.formatMessage(
-                messages.descriptionPlaceholder,
-              )}
+              placeholder={this.props.intl.formatMessage(messages.descriptionPlaceholder)}
             />
           </div>,
         ),
       ),
-    );
+    )
   }
 }
 
-export default React.memo(compose(injectIntl, ...DNDSubblocks)(EditBlock));
-``
-````
+export default React.memo(compose(injectIntl, ...DNDSubblocks)(EditBlock))
+;``
+```
