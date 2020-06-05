@@ -131,22 +131,13 @@ In the `render()` function of this component, you have to iterate on `this.state
 #### Example
 
 ```jsx
-/**
- * Edit icons block.
- * @module components/manage/Blocks/IconsBlocks/Edit
- */
-
 import React from 'react'
 import { Grid } from 'semantic-ui-react'
 import { SubblocksEdit, withDNDContext } from 'volto-subblocks'
 import { SidebarPortal } from '@plone/volto/components'
 import EditBlock from './Block/EditBlock'
 import Sidebar from './Sidebar'
-/**
- * Edit icons block class.
- * @class Edit
- * @extends Component
- */
+
 class Edit extends SubblocksEdit {
   /**
    * Render method.
@@ -247,17 +238,13 @@ const messages = defineMessages({
     defaultMessage: 'Description...',
   },
 })
-/**
- * Edit text block class.
- * @class Edit
- * @extends Component
- */
+
 class EditBlock extends SubblockEdit {
   /**
    * Constructor
    * @method constructor
    * @param {Object} props Component properties
-   * @constructs WysiwygEditor
+   * @constructs EditBlock
    */
   constructor(props) {
     super(props)
