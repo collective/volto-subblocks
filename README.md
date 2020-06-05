@@ -120,13 +120,17 @@ In the `render()` function of this component, you have to iterate on `this.state
 
 - `this.state.subblocks`: contains subblocks. Used to iterate on subblocks
 - `this.state.subIndexSelected`: contains the index of the current selected subblock
-- `this.onChangeSubblocks(subblockIndex, subblock)`: function to call when a subblock value is changed. The param _subblock_ is the subblock object with new value/values.
+- `this.onChangeSubblocks(subblockIndex, subblock)`: function to call when a subblock value is changed.
+  - _subblockIndex_: is the index of the subblock in subblocks array
+  - _subblock_: is the subblock object with new value/values.
 - `this.onMove(dragIndex, hoverIndex)`: function to call when a subblock changes his position / order in subblock list.
   - _dragIndex_: initial index of the item
   - _hoverIndex_: destination index of the item.
-- `this.onChangeFocus(index)`: called when the focus on subblocks change. _index_ is the index of the focused subblock .
+- `this.onChangeFocus(index)`: called when the focus on subblocks change.
+  - _index_: is the index of the focused subblock.
 - `this.deleteSubblock(index)`: function to call to delete subblock at _index_ position.
-- `this.renderAddBlockButton(title)`: renders the add block button. If _title_ is passed, the title is displayed on button. By default the title is _'Add block'_.
+- `this.renderAddBlockButton(title)`: renders the add block button.
+  - _title_: if given, the title is displayed on button. Default the title is _'Add block'_.
 
 #### Example
 
