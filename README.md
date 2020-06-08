@@ -19,7 +19,6 @@ and in `package.json`:
     "develop:npx": "npx -p mrs-developer missdev --config=jsconfig.json --output=addons",
     "develop": "missdev --config=jsconfig.json --output=addons",
     "preinstall": "if [ -f $(pwd)/node_modules/.bin/missdev ]; then yarn develop; else yarn develop:npx; fi",
-    "postinstall": "rm -rf ./node_modules/volto-* && yarn omelette",
     ...
   }
 ```
