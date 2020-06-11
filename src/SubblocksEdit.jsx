@@ -4,7 +4,6 @@ import move from 'lodash-move'
 import { isEqual } from 'lodash'
 import { defineMessages } from 'react-intl'
 import { Button } from 'semantic-ui-react'
-import { Icon } from '@plone/volto/components'
 
 import './volto-subblocks.css'
 

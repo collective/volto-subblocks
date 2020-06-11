@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { isEqual } from 'lodash'
+import { Button } from 'semantic-ui-react'
 import Icon from '@plone/volto/components/theme/Icon/Icon'
 import dragSVG from '@plone/volto/icons/drag.svg'
 import trashSVG from '@plone/volto/icons/delete.svg'
