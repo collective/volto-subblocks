@@ -57,7 +57,7 @@ class SubblockEdit extends Component {
    */
   componentDidMount() {}
 
-  onChange = obj => {
+  onChange = (obj) => {
     for (var key in obj) {
       if (!isEqual(obj[key], this.props.data[key])) {
         this.props.onChangeBlock(this.props.index, {
@@ -70,10 +70,10 @@ class SubblockEdit extends Component {
   onChangeSidebar = (id, obj) => {
     this.onChange(obj)
   }
-  focusOn = e => {
+  focusOn = (e) => {
     this.setState({ focusOn: e })
   }
-  onFocus = event => {
+  onFocus = (event) => {
     this.props.onSubblockChangeFocus(this.props.index)
   }
   focusNode = () => {
