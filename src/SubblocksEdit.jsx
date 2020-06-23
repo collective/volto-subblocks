@@ -159,7 +159,7 @@ class SubblocksEdit extends Component {
   isSubblockSelected = (subindex) => {
     return this.props.selected && this.state.subIndexSelected === subindex
   }
-  subblockFn = {
+  subblockProps = {
     block: this.props.block,
     onSubblockChangeFocus: this.onSubblockChangeFocus,
     onChangeBlock: this.onChangeSubblocks,
