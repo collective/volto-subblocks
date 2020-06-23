@@ -24,10 +24,15 @@
 
 .volto-subblocks-wrapper .single-block .dragsubblock {
     position: absolute;
-    top: -20px;
+    top: -25px;
 
     left: 0;
     color: #b8c6c8;
+}
+
+.volto-subblocks-wrapper .single-block .dragsubblock:hover,
+.volto-subblocks-wrapper .single-block .dragsubblock:active {
+    cursor: move;
 }
 
 .volto-subblocks-wrapper .single-block.subblock-draggable .ui.basic.button.delete-button {
@@ -36,10 +41,15 @@
 
 .volto-subblocks-wrapper .single-block .ui.basic.button.delete-button {
     position: absolute;
-    top: -15px;
+    top: -20px;
     left: 0;
 }
 
 .volto-subblocks-wrapper .single-block .ui.basic.button.delete-button svg {
     fill: #000 !important;
+}
+
+.volto-subblocks-wrapper .single-block .ui.basic.button.delete-button:hover svg,
+.volto-subblocks-wrapper .single-block .ui.basic.button.delete-button:active svg {
+    fill: #e40166 !important;
 }

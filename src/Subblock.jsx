@@ -1,16 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
 
-const Subblock = ({
-  className,
-  draggable = true,
-  children,
-  onFocus,
-  isDragging,
-  node,
-  connectDropTarget,
-  connectDragPreview,
-}) => {
+const Subblock = ({ className, draggable = true, children, subblock }) => {
   let ret = (
     <div
       className={cx(
@@ -18,23 +9,28 @@ const Subblock = ({
         draggable ? 'subblock-draggable' : '',
         draggable
           ? {
-              isDragging: isDragging,
+              isDragging: subblock.isDragging,
             }
           : null,
         className,
       )}
-      onFocus={onFocus}
+      onFocus={subblock.onFocus}
       ref={(_node) => {
-        node = _node
+        subblock.node = _node
       }}
     >
+      {subblock.renderDNDButton()}
+      {subblock.renderDeleteButton()}
       {children}
     </div>
   )
 
   if (draggable) {
-    return connectDropTarget(connectDragPreview(ret))
+    if (subblock.props.connectDropTarget && subblock.props.connectDragPreview) {
+      return subblock.props.connectDropTarget(subblock.props.connectDragPreview(ret))
+    }
   }
+
   return ret
 }
 

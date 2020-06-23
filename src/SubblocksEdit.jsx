@@ -132,11 +132,11 @@ class SubblocksEdit extends Component {
     this.onSubblockChangeFocus(index)
   }
 
-  onSubblockChangeFocus = index => {
+  onSubblockChangeFocus = (index) => {
     this.setState({ subIndexSelected: index })
   }
 
-  deleteSubblock = index => {
+  deleteSubblock = (index) => {
     var sbb = this.state.subblocks
     var subblocks = [...sbb.slice(0, index), ...sbb.slice(index + 1)]
     this.setState({ subblocks })
@@ -146,7 +146,7 @@ class SubblocksEdit extends Component {
     })
   }
 
-  renderAddBlockButton = title => {
+  renderAddBlockButton = (title) => {
     return (
       this.props.selected && (
         <Button onClick={this.addSubblock} className="add-element">
@@ -154,6 +154,16 @@ class SubblocksEdit extends Component {
         </Button>
       )
     )
+  }
+
+  isSubblockSelected = (subindex) => {
+    return this.props.selected && this.state.subIndexSelected === subindex
+  }
+  subblockFn = {
+    onSubblockChangeFocus: this.onSubblockChangeFocus,
+    onChangeBlock: this.onChangeSubblocks,
+    onMoveSubblock: this.onMoveSubblock,
+    onDelete: this.deleteSubblock,
   }
 }
 
