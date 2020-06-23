@@ -89,7 +89,8 @@ class SubblockEdit extends Component {
   }
   renderDeleteButton() {
     return (
-      this.props.selected && (
+      this.props.selected &&
+      !this.props.isDragging && (
         <Button
           icon
           basic

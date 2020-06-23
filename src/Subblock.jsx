@@ -15,12 +15,13 @@ const Subblock = ({ className, draggable = true, children, subblock }) => {
         className,
       )}
       onFocus={subblock.onFocus}
+      onClick={subblock.onFocus}
+      onKeyDown={subblock.onFocus}
       ref={(_node) => {
         subblock.node = _node
       }}
     >
-      {subblock.props.isDragging}
-      {subblock.renderDNDButton()}
+      {draggable && subblock.renderDNDButton()}
       {subblock.renderDeleteButton()}
       {children}
     </div>

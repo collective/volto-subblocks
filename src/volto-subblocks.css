@@ -36,12 +36,12 @@
 }
 
 .volto-subblocks-wrapper .single-block.subblock-draggable .ui.basic.button.delete-button {
-    left: 25px;
+    left: 24px;
 }
 
 .volto-subblocks-wrapper .single-block .ui.basic.button.delete-button {
     position: absolute;
-    top: -20px;
+    top: -18px;
     left: 0;
 }
 

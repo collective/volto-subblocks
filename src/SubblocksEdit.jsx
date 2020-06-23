@@ -74,7 +74,7 @@ class SubblocksEdit extends Component {
    * @returns {undefined}
    */
   componentWillUnmount() {
-    if (this.props.selected) {
+    if (this.props.selected && this.node) {
       this.node.focus()
     }
   }
@@ -160,10 +160,12 @@ class SubblocksEdit extends Component {
     return this.props.selected && this.state.subIndexSelected === subindex
   }
   subblockFn = {
+    block: this.props.block,
     onSubblockChangeFocus: this.onSubblockChangeFocus,
     onChangeBlock: this.onChangeSubblocks,
     onMoveSubblock: this.onMoveSubblock,
     onDelete: this.deleteSubblock,
+    nblock: this.state.subblocks.length,
   }
 }
 
