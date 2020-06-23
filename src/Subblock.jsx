@@ -9,7 +9,7 @@ const Subblock = ({ className, draggable = true, children, subblock }) => {
         draggable ? 'subblock-draggable' : '',
         draggable
           ? {
-              isDragging: subblock.isDragging,
+              isDragging: subblock.props.isDragging,
             }
           : null,
         className,
@@ -19,6 +19,7 @@ const Subblock = ({ className, draggable = true, children, subblock }) => {
         subblock.node = _node
       }}
     >
+      {subblock.props.isDragging}
       {subblock.renderDNDButton()}
       {subblock.renderDeleteButton()}
       {children}
