@@ -268,4 +268,4 @@ Properties:
 
 This product was developed by **RedTurtle Technology** team.
 
-[![RedTurtle Technology Site][https://avatars1.githubusercontent.com/u/1087171?s=100&v=4]][http://www.redturtle.it/]
+[![RedTurtle Technology Site](https://avatars1.githubusercontent.com/u/1087171?s=100&v=4)](http://www.redturtle.it/)
