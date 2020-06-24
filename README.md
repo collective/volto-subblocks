@@ -112,7 +112,7 @@ The edit component of the parent block must extend the class `SubblocksEdit`.
 If you want to enable drag&drop to reorder subblocks, you have to use the HOC 'withDNDContext'.
 
 ```jsx
-export default withDNDContext(Edit)
+export default withDNDContext(Edit);
 ```
 
 In the `render()` function of this component, you have to:
@@ -126,7 +126,12 @@ In the `render()` function of this component, you have to:
 - iterate on `this.state.subblocks` to draw subblocks.
 - render each subblock passing this props:
   ```jsx
-  <EditBlock data={subblock} index={subindex} selected={this.isSubblockSelected(subindex)} {...this.subblockProps} />
+  <EditBlock
+    data={subblock}
+    index={subindex}
+    selected={this.isSubblockSelected(subindex)}
+    {...this.subblockProps}
+  />
   ```
 
 #### Usage
@@ -152,14 +157,18 @@ In the `render()` function of this component, you have to:
 #### Example
 
 ```jsx
-import React from 'react'
-import { withDNDContext, SubblocksEdit, SubblocksWrapper } from 'volto-subblocks'
-import EditBlock from './EditBlock'
+import React from 'react';
+import {
+  withDNDContext,
+  SubblocksEdit,
+  SubblocksWrapper,
+} from 'volto-subblocks';
+import EditBlock from './EditBlock';
 
 class Edit extends SubblocksEdit {
   render() {
     if (__SERVER__) {
-      return <div />
+      return <div />;
     }
 
     return (
@@ -177,11 +186,11 @@ class Edit extends SubblocksEdit {
         {this.props.selected && this.renderAddBlockButton()}
         ...
       </SubblocksWrapper>
-    )
+    );
   }
 }
 
-export default React.memo(withDNDContext(Edit))
+export default React.memo(withDNDContext(Edit));
 ```
 
 ### SubblockEdit
@@ -191,7 +200,7 @@ The edit component of the subblock must extend the class SubblockEdit
 If you want to enable drag&drop to reorder subblocks, you have to compose with `DNDSubblocks`.
 
 ```jsx
-export default compose(...DNDSubblocks)(EditBlock)
+export default compose(...DNDSubblocks)(EditBlock);
 ```
 
 In the `render()` function of this component, you have to:
@@ -205,21 +214,21 @@ In the `render()` function of this component, you have to:
 #### Example
 
 ```jsx
-import React from 'react'
-import { compose } from 'redux'
-import { DNDSubblocks, SubblockEdit, Subblock } from 'volto-subblocks'
+import React from 'react';
+import { compose } from 'redux';
+import { DNDSubblocks, SubblockEdit, Subblock } from 'volto-subblocks';
 
 class EditBlock extends SubblockEdit {
   render() {
     if (__SERVER__) {
-      return <div />
+      return <div />;
     }
 
-    return <Subblock subblock={this}>...</Subblock>
+    return <Subblock subblock={this}>...</Subblock>;
   }
 }
 
-export default React.memo(compose(...DNDSubblocks)(EditBlock))
+export default React.memo(compose(...DNDSubblocks)(EditBlock));
 ```
 
 ### SubblocksWrapper
@@ -254,3 +263,11 @@ Properties:
   ....
 </Subblock>
 ```
+
+## Authors
+
+This product was developed by **RedTurtle Technology** team.
+
+.. image:: https://avatars1.githubusercontent.com/u/1087171?s=100&v=4
+:alt: RedTurtle Technology Site
+:target: http://www.redturtle.it/
