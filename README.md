@@ -109,87 +109,74 @@ This is meant to edit blocks with sub-blocks, where the sub-blocks are all of th
 ### SubblocksEdit
 
 The edit component of the parent block must extend the class `SubblocksEdit`.
+If you want to enable drag&drop to reorder subblocks, you have to use the HOC 'withDNDContext'.
 
-In the `render()` function of this component, you have to iterate on `this.state.subblocks` to draw subblocks.
+```jsx
+export default withDNDContext(Edit)
+```
+
+In the `render()` function of this component, you have to:
+
+- wrap all content with 'SubblocksWrapper' component:
+
+```jsx
+<SubblocksWrapper node={this.node}>...</SubblocksWrapper>
+```
+
+- iterate on `this.state.subblocks` to draw subblocks.
+- render each subblock passing this props:
+  ```jsx
+  <EditBlock data={subblock} index={subindex} selected={this.isSubblockSelected(subindex)} {...this.subblockProps} />
+  ```
 
 #### Usage
 
 - You could insert the add button simply writing `{this.renderAddBlockButton()}`
-- You could insert the remove button for each subblock, simply writing `{this.renderDeleteBlockButton(subindex)}` where 'subindex' is the index of subblock.
 
-- `this.state.subblocks`: contains subblocks. Used to iterate on subblocks
-- `this.state.subIndexSelected`: contains the index of the current selected subblock
-- `this.onChangeSubblocks(subblockIndex, subblock)`: function to call when a subblock value is changed.
+* `this.state.subblocks`: contains subblocks. Used to iterate on subblocks
+* `this.state.subIndexSelected`: contains the index of the current selected subblock
+* `this.onChangeSubblocks(subblockIndex, subblock)`: function to call when a subblock value is changed.
   - _subblockIndex_: is the index of the subblock in subblocks array
   - _subblock_: is the subblock object with new value/values.
-- `this.onMove(dragIndex, hoverIndex)`: function to call when a subblock changes his position / order in subblock list.
+* `this.onMoveSubblock(dragIndex, hoverIndex)`: function to call when a subblock changes his position / order in subblock list.
   - _dragIndex_: initial index of the item
   - _hoverIndex_: destination index of the item.
-- `this.onChangeFocus(index)`: called when the focus on subblocks change.
+* `this.onSubblockChangeFocus(index)`: called when the focus on subblocks changes.
   - _index_: is the index of the focused subblock.
-- `this.deleteSubblock(index)`: function to call to delete subblock at _index_ position.
-- `this.renderAddBlockButton(title)`: renders the add block button.
+* `this.deleteSubblock(index)`: function to call to delete subblock at _index_ position.
+* `this.isSubblockSelected(index)`: return true if subblock ad _index_ position is selected.
+* `this.renderAddBlockButton(title)`: renders the add block button.
   - _title_: if given, the title is displayed on button. Default the title is _'Add block'_.
+* `this.subblockProps`: it's an object that contains default props for edit each subblock.
 
 #### Example
 
 ```jsx
 import React from 'react'
-import { Grid } from 'semantic-ui-react'
-import { SubblocksEdit, withDNDContext } from 'volto-subblocks'
-import { SidebarPortal } from '@plone/volto/components'
-import EditBlock from './Block/EditBlock'
-import Sidebar from './Sidebar'
+import { withDNDContext, SubblocksEdit, SubblocksWrapper } from 'volto-subblocks'
+import EditBlock from './EditBlock'
 
 class Edit extends SubblocksEdit {
-  /**
-   * Render method.
-   * @method render
-   * @returns {string} Markup for the component.
-   */
   render() {
     if (__SERVER__) {
       return <div />
     }
 
     return (
-      <div
-        className="volto-subblocks"
-        ref={node => {
-          this.node = node
-        }}
-      >
-        <Grid stackable columns="equal" verticalAlign="top">
-          <Grid.Row columns={4}>
-            {this.state.subblocks.map((subblock, subindex) => (
-              <Grid.Column key={subblock.id}>
-                <EditBlock
-                  data={subblock}
-                  index={subindex}
-                  selected={this.props.selected && this.state.subIndexSelected === subindex}
-                  block={this.props.block}
-                  openObjectBrowser={this.props.openObjectBrowser}
-                  onChangeBlock={this.onChangeSubblocks}
-                  onChangeFocus={this.onSubblockChangeFocus}
-                  onDelete={this.deleteSubblock}
-                  onMove={this.onMoveSubblock}
-                />
-              </Grid.Column>
-            ))}
-
-            {this.props.selected && <Grid.Column>{this.renderAddBlockButton()}</Grid.Column>}
-          </Grid.Row>
-        </Grid>
-        <SidebarPortal selected={this.props.selected}>
-          <Sidebar
-            {...this.props}
-            data={this.props.data}
-            onChangeBlock={this.onChangeSubblocks}
-            selected={this.state.subIndexSelected}
-            setSelected={this.onSubblockChangeFocus}
+      <SubblocksWrapper node={this.node}>
+        ...
+        {this.state.subblocks.map((subblock, subindex) => (
+          <EditBlock
+            data={subblock}
+            index={subindex}
+            selected={this.isSubblockSelected(subindex)}
+            {...this.subblockProps}
+            openObjectBrowser={this.props.openObjectBrowser}
           />
-        </SidebarPortal>
-      </div>
+        ))}
+        {this.props.selected && this.renderAddBlockButton()}
+        ...
+      </SubblocksWrapper>
     )
   }
 }
@@ -201,114 +188,69 @@ export default React.memo(withDNDContext(Edit))
 
 The edit component of the subblock must extend the class SubblockEdit
 
-If you want to enable drag&drop to reorder subblocks, you have to return content from this function:
+If you want to enable drag&drop to reorder subblocks, you have to compose with `DNDSubblocks`.
 
 ```jsx
-return this.props.connectDropTarget(this.props.connectDragPreview(this.props.connectDragSource(<>here the content</>)))
+export default compose(...DNDSubblocks)(EditBlock)
 ```
 
-and compose with DNDSubblocks.
+In the `render()` function of this component, you have to:
 
-- `this.onChange(obj)` to call when the subblock changes.
-  - _obj_: is the object of subblock with new values
-- `this.onFocus(event)` to call when subblock receive focus
-- `this.focusNode()` to call when you focus the subblock
-- `this.renderDNDButton()` renders drag & drop button for subblock.
-- `this.renderDeleteButton()` renders delete button to delete subblock.
+- wrap all content with 'Subblock' component. By default Subblock component is draggable. If you prefer not to make subblocks draggable, you could add the prop `draggable={false}`:
+
+```jsx
+<Subblock subblock={this}>...</Subblock>
+```
 
 #### Example
 
 ```jsx
-/**
- * Edit text block.
- * @module components/manage/Blocks/Title/Edit
- */
-
 import React from 'react'
 import { compose } from 'redux'
-import cx from 'classnames'
-import { Placeholder } from 'semantic-ui-react'
-import { injectIntl, defineMessages } from 'react-intl'
-import { SubblockEdit, DNDSubblocks } from 'volto-subblocks'
-
-import { TextEditorWidget } from '@package/components'
-import ViewIcon from './ViewIcon'
-
-const messages = defineMessages({
-  iconPlaceholder: {
-    id: 'Icon placeholder',
-    defaultMessage: 'Select an icon...',
-  },
-  descriptionPlaceholder: {
-    id: 'Description placeholder',
-    defaultMessage: 'Description...',
-  },
-})
+import { DNDSubblocks, SubblockEdit, Subblock } from 'volto-subblocks'
 
 class EditBlock extends SubblockEdit {
-  /**
-   * Constructor
-   * @method constructor
-   * @param {Object} props Component properties
-   * @constructs EditBlock
-   */
-  constructor(props) {
-    super(props)
-    this.state = {
-      focusOn: 'description',
-    }
-    if (!this.props.data.block_style) {
-      this.props.data.block_style = 'underline'
-    }
-  }
-
-  /**
-   * Render method.
-   * @method render
-   * @returns {string} Markup for the component.
-   */
   render() {
     if (__SERVER__) {
       return <div />
     }
 
-    return this.props.connectDropTarget(
-      this.props.connectDragPreview(
-        this.props.connectDragSource(
-          <div
-            className={cx('volto-subblock', this.props.data.block_style, {
-              isDragging: this.props.isDragging,
-            })}
-            onFocus={this.onFocus}
-            ref={node => {
-              this.node = node
-            }}
-          >
-            {this.renderDNDButton()}
-            {this.renderDeleteButton()}
-            <div onClick={this.focusNode}>
-              {!this.props.data.icon && (
-                <Placeholder style={{ height: 50, width: 50 }}>
-                  <Placeholder.Image />
-                </Placeholder>
-              )}
-              <ViewIcon icon={this.props.data.icon} size="40px" />
-            </div>
-            <TextEditorWidget
-              data={this.props.data}
-              fieldName="description"
-              selected={this.state.focusOn === 'description'}
-              block={this.props.block}
-              onChangeBlock={this.onChange}
-              placeholder={this.props.intl.formatMessage(messages.descriptionPlaceholder)}
-            />
-          </div>,
-        ),
-      ),
-    )
+    return <Subblock subblock={this}>...</Subblock>
   }
 }
 
-export default React.memo(compose(injectIntl, ...DNDSubblocks)(EditBlock))
-;``
+export default React.memo(compose(...DNDSubblocks)(EditBlock))
+```
+
+### SubblocksWrapper
+
+It's the wrapper to use in parent component.
+Properties:
+
+- `node`: the 'node' var that will contain ref for this node.
+- `className`: to add class or classes to the wrapper.
+
+#### Example
+
+```jsx
+<SubblocksWrapper node={this.node} className="additional_class">
+  ....
+</SubblocksWrapper>
+```
+
+### Subblock
+
+It's the wrapper for each subblock. Use it in subblock edit component.
+Properties:
+
+- `subblock`: the current class instance of subblock
+- `className`: to add class or classes to the wrapper.
+- `draggable`: default `true`. If you don't want to make your subblock sortable with drag&drop, you can pass `false`.
+
+#### Example
+
+```jsx
+<Subblock subblock={this} className="additional_class" draggable={false}>
+  ....
+</Subblock>
 ```
