@@ -10,8 +10,11 @@ const Subblock = ({ className, draggable = true, children, subblock }) => {
         draggable
           ? {
               isDragging: subblock.props.isDragging,
+              highlighted: subblock.props.highlighted,
+              hovered: subblock.props.hovered,
             }
           : null,
+
         className,
       )}
       onFocus={subblock.onFocus}

@@ -10,8 +10,23 @@
 }
 
 .volto-subblocks-wrapper .isDragging {
-    border: 1px solid #9bd0e1;
+    background-color: rgba(0, 0, 0, 0.05);
     border-radius: 5px;
+}
+
+.volto-subblocks-wrapper .hovered {
+    position: relative;
+}
+
+.volto-subblocks-wrapper .hovered::after {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.05);
+    content: ' ';
 }
 
 .volto-subblocks-wrapper .dragsubblock:hover {
@@ -33,6 +48,10 @@
 .volto-subblocks-wrapper .single-block .dragsubblock:hover,
 .volto-subblocks-wrapper .single-block .dragsubblock:active {
     cursor: move;
+}
+
+.volto-subblocks-wrapper .single-block.subblock-draggable {
+    transform: translateZ(0);
 }
 
 .volto-subblocks-wrapper .single-block.subblock-draggable .ui.basic.button.delete-button {
