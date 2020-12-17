@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "react-dnd": "^5.0.0",
-    "react-dnd-html5-backend": "ˆ5.0.1"
+    "react-dnd-html5-backend": "^5.0.1"
   },
   "scripts": {
     "release": "release-it"
