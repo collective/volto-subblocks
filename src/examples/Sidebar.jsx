@@ -6,8 +6,8 @@ import { LinkToWidget } from '@package/components'
 import { Icon } from '@plone/volto/components'
 import upSVG from '@plone/volto/icons/up-key.svg'
 import downSVG from '@plone/volto/icons/down-key.svg'
-import { settings } from '~/config'
 import redraft from 'redraft'
+import config from '@plone/volto/registry';
 
 const Sidebar = ({
   data,
@@ -37,7 +37,7 @@ const Sidebar = ({
                 onClick={() => setSelected(selected === index ? null : index)}
               >
                 {subblock.title
-                  ? redraft(subblock.title, settings.ToHTMLRenderers, settings.ToHTMLOptions)
+                  ? redraft(subblock.title, config.settings.ToHTMLRenderers, config.settings.ToHTMLOptions)
                   : `Blocco ${index + 1}`}
                 {selected === index ? <Icon name={upSVG} size="20px" /> : <Icon name={downSVG} size="20px" />}
               </Accordion.Title>
