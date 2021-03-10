@@ -1,11 +1,15 @@
-import React from 'react'
-import { Grid } from 'semantic-ui-react'
+import React from 'react';
+import { Grid } from 'semantic-ui-react';
 
-import { withDNDContext, SubblocksEdit, SubblocksWrapper } from 'volto-subblocks'
-import EditBlock from './EditBlock'
+import {
+  withDNDContext,
+  SubblocksEdit,
+  SubblocksWrapper,
+} from 'volto-subblocks';
+import EditBlock from './EditBlock';
 
-import { SidebarPortal } from '@plone/volto/components'
-import Sidebar from './Sidebar.jsx'
+import { SidebarPortal } from '@plone/volto/components';
+import Sidebar from './Sidebar.jsx';
 
 /**
  * Edit text block class.
@@ -20,7 +24,7 @@ class Edit extends SubblocksEdit {
    */
   render() {
     if (__SERVER__) {
-      return <div />
+      return <div />;
     }
 
     return (
@@ -39,7 +43,9 @@ class Edit extends SubblocksEdit {
               </Grid.Column>
             ))}
 
-            {this.props.selected && <Grid.Column>{this.renderAddBlockButton()}</Grid.Column>}
+            {this.props.selected && (
+              <Grid.Column>{this.renderAddBlockButton()}</Grid.Column>
+            )}
           </Grid.Row>
         </Grid>
 
@@ -53,8 +59,8 @@ class Edit extends SubblocksEdit {
           />
         </SidebarPortal>
       </SubblocksWrapper>
-    )
+    );
   }
 }
 
-export default React.memo(withDNDContext(Edit))
+export default React.memo(withDNDContext(Edit));

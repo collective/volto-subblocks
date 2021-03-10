@@ -1,12 +1,12 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Segment, Accordion } from 'semantic-ui-react'
-import { FormattedMessage, injectIntl } from 'react-intl'
-import { LinkToWidget } from '@package/components'
-import { Icon } from '@plone/volto/components'
-import upSVG from '@plone/volto/icons/up-key.svg'
-import downSVG from '@plone/volto/icons/down-key.svg'
-import redraft from 'redraft'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Segment, Accordion } from 'semantic-ui-react';
+import { FormattedMessage, injectIntl } from 'react-intl';
+import { LinkToWidget } from '@package/components';
+import { Icon } from '@plone/volto/components';
+import upSVG from '@plone/volto/icons/up-key.svg';
+import downSVG from '@plone/volto/icons/down-key.svg';
+import redraft from 'redraft';
 import config from '@plone/volto/registry';
 
 const Sidebar = ({
@@ -23,7 +23,7 @@ const Sidebar = ({
     <Segment.Group raised>
       <header className="header pulled">
         <h2>
-          <FormattedMessage id="TextBlocks" defaultMessage="Blocchi di testo" />
+          <FormattedMessage id="TextBlocks" defaultMessage="Text Blocks" />
         </h2>
       </header>
 
@@ -37,9 +37,17 @@ const Sidebar = ({
                 onClick={() => setSelected(selected === index ? null : index)}
               >
                 {subblock.title
-                  ? redraft(subblock.title, config.settings.ToHTMLRenderers, config.settings.ToHTMLOptions)
+                  ? redraft(
+                      subblock.title,
+                      config.settings.ToHTMLRenderers,
+                      config.settings.ToHTMLOptions,
+                    )
                   : `Blocco ${index + 1}`}
-                {selected === index ? <Icon name={upSVG} size="20px" /> : <Icon name={downSVG} size="20px" />}
+                {selected === index ? (
+                  <Icon name={upSVG} size="20px" />
+                ) : (
+                  <Icon name={downSVG} size="20px" />
+                )}
               </Accordion.Title>
               <Accordion.Content active={selected === index}>
                 <LinkToWidget
@@ -49,7 +57,7 @@ const Sidebar = ({
                     onChangeBlock(index, {
                       ...subblock,
                       [name]: value,
-                    })
+                    });
                   }}
                 />
               </Accordion.Content>
@@ -57,8 +65,8 @@ const Sidebar = ({
           ))}
       </Accordion>
     </Segment.Group>
-  )
-}
+  );
+};
 
 Sidebar.propTypes = {
   data: PropTypes.objectOf(PropTypes.any).isRequired,
@@ -67,6 +75,6 @@ Sidebar.propTypes = {
   openObjectBrowser: PropTypes.func.isRequired,
   selected: PropTypes.any,
   setSelected: PropTypes.func,
-}
+};
 
-export default injectIntl(Sidebar)
+export default injectIntl(Sidebar);
