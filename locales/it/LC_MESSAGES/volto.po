@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#: SubblocksEdit
+ #: SubblocksEdit
 msgid "Add block"
 msgstr "Aggiungi blocco"
 

@@ -96,20 +96,21 @@ function messagesToPot(messages) {
  */
 function potHeader() {
   return `msgid ""
-msgstr ""
-"Project-Id-Version: Plone\\n"
-"POT-Creation-Date: ${new Date().toISOString()}\\n"
-"Last-Translator: Plone i18n <plone-i18n@lists.sourceforge.net>\\n"
-"Language-Team: Plone i18n <plone-i18n@lists.sourceforge.net>\\n"
-"MIME-Version: 1.0\\n"
-"Content-Type: text/plain; charset=utf-8\\n"
-"Content-Transfer-Encoding: 8bit\\n"
-"Plural-Forms: nplurals=1; plural=0;\\n"
-"Language-Code: en\\n"
-"Language-Name: English\\n"
-"Preferred-Encodings: utf-8\\n"
-"Domain: volto\\n"
-`;
+ msgstr ""
+ "Project-Id-Version: Plone\\n"
+ "POT-Creation-Date: ${new Date().toISOString()}\\n"
+ "Last-Translator: Plone i18n <plone-i18n@lists.sourceforge.net>\\n"
+ "Language-Team: Plone i18n <plone-i18n@lists.sourceforge.net>\\n"
+ "MIME-Version: 1.0\\n"
+ "Content-Type: text/plain; charset=utf-8\\n"
+ "Content-Transfer-Encoding: 8bit\\n"
+ "Plural-Forms: nplurals=1; plural=0;\\n"
+ "Language-Code: en\\n"
+ "Language-Name: English\\n"
+ "Preferred-Encodings: utf-8\\n"
+ "Domain: volto\\n"
+
+ `;
 }
 
 /**
@@ -143,14 +144,14 @@ function syncPoByPot() {
     fs.writeFileSync(
       filename,
       `${formatHeader(po.comments, po.headers)}
-${map(pot.items, (item) => {
-  const poItem = find(po.items, { msgid: item.msgid });
-  return [
-    `${map(item.references, (ref) => `#: ${ref}`).join('\n')}`,
-    `msgid "${item.msgid}"`,
-    `msgstr "${poItem ? poItem.msgstr : ''}"`,
-  ].join('\n');
-}).join('\n\n')}\n`,
+ ${map(pot.items, (item) => {
+   const poItem = find(po.items, { msgid: item.msgid });
+   return [
+     `${map(item.references, (ref) => `#: ${ref}`).join('\n')}`,
+     `msgid "${item.msgid}"`,
+     `msgstr "${poItem ? poItem.msgstr : ''}"`,
+   ].join('\n');
+ }).join('\n\n')}\n`,
     );
   });
 }
