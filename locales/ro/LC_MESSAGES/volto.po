@@ -11,18 +11,22 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
- #: SubblocksEdit
+#: SubblocksEdit
+# defaultMessage: Add block
 msgid "Add block"
 msgstr ""
 
 #: examples/EditBlock
+# defaultMessage: Description...
 msgid "Description placeholder"
 msgstr ""
 
 #: examples/Sidebar
+# defaultMessage: Text Blocks
 msgid "TextBlocks"
 msgstr ""
 
 #: examples/EditBlock
+# defaultMessage: Title...
 msgid "Title placeholder"
 msgstr ""
