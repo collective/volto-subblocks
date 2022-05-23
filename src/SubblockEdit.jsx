@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { isEqual } from 'lodash'
-import { Button } from 'semantic-ui-react'
-import Icon from '@plone/volto/components/theme/Icon/Icon'
-import dragSVG from '@plone/volto/icons/drag.svg'
-import trashSVG from '@plone/volto/icons/delete.svg'
-import './volto-subblocks.css'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { isEqual } from 'lodash';
+import { Button } from 'semantic-ui-react';
+import Icon from '@plone/volto/components/theme/Icon/Icon';
+import dragSVG from '@plone/volto/icons/drag.svg';
+import trashSVG from '@plone/volto/icons/delete.svg';
+import './volto-subblocks.css';
 
 /**
  * Edit subblock
@@ -27,7 +27,7 @@ class SubblockEdit extends Component {
     onChangeFocus: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
     openObjectBrowser: PropTypes.func.isRequired,
-  }
+  };
 
   /**
    * Constructor
@@ -36,7 +36,7 @@ class SubblockEdit extends Component {
    * @constructs WysiwygEditor
    */
   constructor(props) {
-    super(props)
+    super(props);
     /*
 
     //example
@@ -63,30 +63,30 @@ class SubblockEdit extends Component {
         this.props.onChangeBlock(this.props.index, {
           ...this.props.data,
           [key]: obj[key],
-        })
+        });
       }
     }
-  }
+  };
   onChangeSidebar = (id, obj) => {
-    this.onChange(obj)
-  }
+    this.onChange(obj);
+  };
   focusOn = (e) => {
-    this.setState({ focusOn: e })
-  }
+    this.setState({ focusOn: e });
+  };
   onFocus = (event) => {
-    this.props.onSubblockChangeFocus(this.props.index)
-  }
+    this.props.onSubblockChangeFocus(this.props.index);
+  };
   focusNode = () => {
-    this.onFocus()
-  }
+    this.onFocus();
+  };
 
   renderDNDButton = () => {
     return this.props.connectDragSource(
       <div className="dragsubblock">
         <Icon className="drag handle" name={dragSVG} size="18px" />
       </div>,
-    )
-  }
+    );
+  };
   renderDeleteButton() {
     return (
       this.props.selected &&
@@ -101,8 +101,8 @@ class SubblockEdit extends Component {
           <Icon name={trashSVG} size="18px" />
         </Button>
       )
-    )
+    );
   }
 }
 
-export default SubblockEdit
+export default SubblockEdit;

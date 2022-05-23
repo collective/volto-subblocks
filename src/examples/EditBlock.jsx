@@ -3,11 +3,11 @@
  * @module components/manage/Blocks/Title/Edit
  */
 
-import React from 'react'
-import { injectIntl, defineMessages } from 'react-intl'
-import { compose } from 'redux'
-import { TextEditorWidget } from '@package/components'
-import { DNDSubblocks, SubblockEdit, Subblock } from 'volto-subblocks'
+import React from 'react';
+import { injectIntl, defineMessages } from 'react-intl';
+import { compose } from 'redux';
+import { TextEditorWidget } from '@package/components';
+import { injectDNDSubblocks, SubblockEdit, Subblock } from 'volto-subblocks';
 
 const messages = defineMessages({
   titlePlaceholder: {
@@ -18,7 +18,7 @@ const messages = defineMessages({
     id: 'Description placeholder',
     defaultMessage: 'Description...',
   },
-})
+});
 /**
  * Edit text block class.
  * @class Edit
@@ -32,10 +32,10 @@ class EditBlock extends SubblockEdit {
    * @constructs WysiwygEditor
    */
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       focusOn: 'title',
-    }
+    };
     if (!__SERVER__) {
     }
   }
@@ -47,7 +47,7 @@ class EditBlock extends SubblockEdit {
    */
   render() {
     if (__SERVER__) {
-      return <div />
+      return <div />;
     }
 
     return (
@@ -59,7 +59,9 @@ class EditBlock extends SubblockEdit {
             selected={this.props.selected || this.state.focusOn === 'title'}
             block={this.props.block}
             onChangeBlock={this.onChange}
-            placeholder={this.props.intl.formatMessage(messages.titlePlaceholder)}
+            placeholder={this.props.intl.formatMessage(
+              messages.titlePlaceholder,
+            )}
             focusOn={this.focusOn}
             nextFocus="description"
           />
@@ -69,12 +71,14 @@ class EditBlock extends SubblockEdit {
             selected={this.state.focusOn === 'description'}
             block={this.props.block}
             onChangeBlock={this.onChange}
-            placeholder={this.props.intl.formatMessage(messages.descriptionPlaceholder)}
+            placeholder={this.props.intl.formatMessage(
+              messages.descriptionPlaceholder,
+            )}
           />
         </>
       </Subblock>
-    )
+    );
   }
 }
 
-export default React.memo(compose(injectIntl, ...DNDSubblocks)(EditBlock))
+export default compose(injectIntl, injectDNDSubblocks)(EditBlock);

@@ -4,7 +4,6 @@ A widget for [Volto](https://github.com/plone/volto) to have a block with subblo
 
 To be used with mrs-developer, see [Volto docs](https://docs.voltocms.com/customizing/add-ons/) for further usage informations.
 
-
 ## Usage
 
 This is meant to edit blocks with sub-blocks, where the sub-blocks are all of the same type.
@@ -100,10 +99,10 @@ export default React.memo(withDNDContext(Edit));
 
 The edit component of the subblock must extend the class SubblockEdit
 
-If you want to enable drag&drop to reorder subblocks, you have to compose with `DNDSubblocks`.
+If you want to enable drag&drop to reorder subblocks, you have to compose with `injectDNDSubblocks`.
 
 ```jsx
-export default compose(...DNDSubblocks)(EditBlock);
+export default compose(injectDNDSubblocks)(EditBlock);
 ```
 
 In the `render()` function of this component, you have to:
@@ -119,7 +118,7 @@ In the `render()` function of this component, you have to:
 ```jsx
 import React from 'react';
 import { compose } from 'redux';
-import { DNDSubblocks, SubblockEdit, Subblock } from 'volto-subblocks';
+import { injectDNDSubblocks, SubblockEdit, Subblock } from 'volto-subblocks';
 
 class EditBlock extends SubblockEdit {
   render() {
@@ -131,7 +130,7 @@ class EditBlock extends SubblockEdit {
   }
 }
 
-export default React.memo(compose(...DNDSubblocks)(EditBlock));
+export default React.memo(compose(injectDNDSubblocks)(EditBlock));
 ```
 
 ### SubblocksWrapper
