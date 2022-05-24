@@ -1,4 +1,19 @@
-import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
+import React from 'react';
+import { injectLazyLibs } from '@plone/volto/helpers/Loadable/Loadable';
 
-export default DragDropContext(HTML5Backend);
+const withDNDContext = (component) => {
+  const DNDConnector = (props) => {
+    const { DragDropContext } = props.reactDnd;
+    const HTML5Backend = props.reactDndHtml5Backend.default;
+
+    const DNDSubblocks = React.useMemo(
+      () => DragDropContext(HTML5Backend)(component),
+      [DragDropContext, HTML5Backend],
+    );
+
+    return <DNDSubblocks {...props} />;
+  };
+  return injectLazyLibs(['reactDnd', 'reactDndHtml5Backend'])(DNDConnector);
+};
+
+export default withDNDContext;
