@@ -4,6 +4,8 @@ A widget for [Volto](https://github.com/plone/volto) to have a block with subblo
 
 To be used with mrs-developer, see [Volto docs](https://docs.voltocms.com/customizing/add-ons/) for further usage informations.
 
+> If you are using Volto < 16, then use v1.2.3.
+
 ## Usage
 
 This is meant to edit blocks with sub-blocks, where the sub-blocks are all of the same type.
