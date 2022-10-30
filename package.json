@@ -7,15 +7,15 @@
   "author": "Giulia Ghisini",
   "license": "MIT",
   "devDependencies": {
+    "@plone/scripts": "^2.0.0",
     "release-it": "*"
   },
   "dependencies": {
-    "@plone/scripts": "^1.0.3",
     "react-dnd": "^5.0.0",
     "react-dnd-html5-backend": "^5.0.1"
   },
   "peerDependencies": {
-    "@plone/volto": ">=14.0.0"
+    "@plone/volto": ">=16.0.0-alpha.38"
   },
   "scripts": {
     "i18n": "rm -rf build/messages && NODE_ENV=production i18n -a",
