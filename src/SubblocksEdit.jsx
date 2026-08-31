@@ -149,7 +149,11 @@ class SubblocksEdit extends Component {
   renderAddBlockButton = (title) => {
     return (
       this.props.selected && (
-        <Button onClick={this.addSubblock} className="add-element">
+        <Button
+          type="button"
+          onClick={this.addSubblock}
+          className="add-element"
+        >
           {title ? title : this.props.intl.formatMessage(messages.addBlock)}
         </Button>
       )

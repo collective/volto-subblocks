@@ -92,6 +92,7 @@ class SubblockEdit extends Component {
       this.props.selected &&
       !this.props.isDragging && (
         <Button
+          type="button"
           icon
           basic
           onClick={() => this.props.onDelete(this.props.index)}
