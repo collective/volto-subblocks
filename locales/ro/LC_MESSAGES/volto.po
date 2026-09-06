@@ -14,19 +14,19 @@ msgstr ""
 #: SubblocksEdit
 # defaultMessage: Add block
 msgid "Add block"
-msgstr ""
+msgstr "Adaugă bloc"
 
 #: examples/EditBlock
 # defaultMessage: Description...
 msgid "Description placeholder"
-msgstr ""
+msgstr "Text ajutător pentru Descriere"
 
 #: examples/Sidebar
 # defaultMessage: Text Blocks
 msgid "TextBlocks"
-msgstr ""
+msgstr "Bloc text"
 
 #: examples/EditBlock
 # defaultMessage: Title...
 msgid "Title placeholder"
-msgstr ""
+msgstr "Text ajutător pentru Titlu"
