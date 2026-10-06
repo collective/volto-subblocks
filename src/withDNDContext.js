@@ -1,23 +1,63 @@
 import React from 'react';
-import { injectLazyLibs } from '@plone/volto/helpers/Loadable/Loadable';
+import {
+  DndContext,
+  closestCenter,
+  PointerSensor,
+  KeyboardSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+  sortableKeyboardCoordinates,
+} from '@dnd-kit/sortable';
 
-let dndContextSingleton = null;
-const withDNDContext = (component) => {
-  const DNDConnector = (props) => {
-    const { DragDropContext } = props.reactDnd;
-    const HTML5Backend = props.reactDndHtml5Backend.default;
-    if (!dndContextSingleton) {
-      dndContextSingleton = DragDropContext(HTML5Backend);
-    }
+const withDNDContext = (Component) => {
+  const DNDComponent = (props) => {
+    const items = (props.data?.subblocks || []).map(
+      (subblock, index) => subblock.id || 'subblock-${index}',
+    );
 
-    const DNDSubblocks = React.useMemo(() => dndContextSingleton(component), [
-      DragDropContext,
-      HTML5Backend,
-    ]);
+    const sensors = useSensors(
+      useSensor(PointerSensor),
+      useSensor(KeyboardSensor, {
+        coordinateGetter: sortableKeyboardCoordinates,
+      }),
+    );
 
-    return <DNDSubblocks {...props} />;
+    const handleDragEnd = ({ active, over }) => {
+      if (!over || active.id === over.id) {
+        return;
+      }
+
+      const fromIndex = active.data.current?.index;
+      const toIndex = over.data.current?.index;
+      const onMoveSubblock = active.data.current?.onMoveSubblock;
+
+      if (
+        typeof fromIndex === 'number' &&
+        typeof toIndex === 'number' &&
+        onMoveSubblock
+      ) {
+        onMoveSubblock(fromIndex, toIndex);
+      }
+    };
+
+    return (
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+      >
+        <SortableContext items={items} strategy={verticalListSortingStrategy}>
+          <Component {...props} />
+        </SortableContext>
+      </DndContext>
+    );
   };
-  return injectLazyLibs(['reactDnd', 'reactDndHtml5Backend'])(DNDConnector);
+
+  return DNDComponent;
 };
 
 export default withDNDContext;

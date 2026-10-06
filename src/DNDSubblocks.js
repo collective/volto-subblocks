@@ -1,61 +1,61 @@
 import React from 'react';
-import { injectLazyLibs } from '@plone/volto/helpers/Loadable/Loadable';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
-const ItemTypes = {
-  ITEM: 'subblock',
-};
+export const injectDNDSubblocks = (Component) => {
+  const DNDSubblocks = (props) => {
+    const {
+      attributes,
+      listeners,
+      setNodeRef,
+      setActivatorNodeRef,
+      transform,
+      transition,
+      isDragging,
+    } = useSortable({
+      id: props.data?.id || 'subblock-${props.index}',
+      data: {
+        type: 'subblock',
+        index: props.index,
+        onMoveSubblock: props.onMoveSubblock,
+      },
+    });
 
-const itemSource = {
-  beginDrag(props) {
-    return {
-      id: props.id,
-      index: props.index,
+    const style = {
+      transform: CSS.Transform.toString(transform),
+      transition,
     };
-  },
-};
 
-const itemTarget = {
-  hover(props, monitor, component) {
-    const dragIndex = monitor.getItem().index;
-    const hoverIndex = props.index;
+    const connectDragSource = (element) => {
+      return React.cloneElement(element, {
+        ref: setActivatorNodeRef,
+        ...attributes,
+        ...listeners,
+      });
+    };
 
-    // Don't replace items with themselves
-    if (dragIndex === hoverIndex) {
-      return;
-    }
+    const connectDragPreview = (element) => {
+      return React.cloneElement(element, {
+        ref: setNodeRef,
+        style: {
+          ...element.props.style,
+          ...style,
+        },
+      });
+    };
 
-    // Time to actually perform the action
-    props.onMoveSubblock(dragIndex, hoverIndex);
+    const connectDropTarget = (element) => element;
 
-    // Note: we're mutating the monitor item here!
-    // Generally it's better to avoid mutations,
-    // but it's good here for the sake of performance
-    // to avoid expensive index searches.
-    monitor.getItem().index = hoverIndex;
-  },
-};
-
-export const injectDNDSubblocks = (component) => {
-  const _DNDSubblocksConnector = (props) => {
-    const { DropTarget, DragSource } = props.reactDnd;
-
-    const DNDSubblocks = React.useMemo(
-      () =>
-        DropTarget(ItemTypes.ITEM, itemTarget, (connect, monitor) => ({
-          connectDropTarget: connect.dropTarget(),
-          highlighted: monitor.canDrop(),
-          hovered: monitor.isOver(),
-        }))(
-          DragSource(ItemTypes.ITEM, itemSource, (connect, monitor) => ({
-            connectDragSource: connect.dragSource(),
-            connectDragPreview: connect.dragPreview(),
-            isDragging: monitor.isDragging(),
-          }))(component),
-        ),
-      [DragSource, DropTarget],
+    return (
+      <Component
+        {...props}
+        isDragging={isDragging}
+        connectDragSource={connectDragSource}
+        connectDragPreview={connectDragPreview}
+        connectDropTarget={connectDropTarget}
+      />
     );
-
-    return <DNDSubblocks {...props} />;
   };
-  return injectLazyLibs('reactDnd')(_DNDSubblocksConnector);
+
+  return DNDSubblocks;
 };
