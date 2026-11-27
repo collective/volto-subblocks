@@ -1,8 +1,8 @@
-import React from 'react'
-import cx from 'classnames'
+import React from 'react';
+import cx from 'classnames';
 
 const Subblock = ({ className, draggable = true, children, subblock }) => {
-  let ret = (
+  const ret = (
     <div
       className={cx(
         'single-block',
@@ -10,33 +10,28 @@ const Subblock = ({ className, draggable = true, children, subblock }) => {
         draggable
           ? {
               isDragging: subblock.props.isDragging,
-              highlighted: subblock.props.highlighted,
-              hovered: subblock.props.hovered,
             }
           : null,
-
         className,
       )}
       onFocus={subblock.onFocus}
       onClick={subblock.onFocus}
       onKeyDown={subblock.onFocus}
       ref={(_node) => {
-        subblock.node = _node
+        subblock.node = _node;
       }}
     >
       {draggable && subblock.renderDNDButton()}
       {subblock.renderDeleteButton()}
       {children}
     </div>
-  )
+  );
 
-  if (draggable) {
-    if (subblock.props.connectDropTarget && subblock.props.connectDragPreview) {
-      return subblock.props.connectDropTarget(subblock.props.connectDragPreview(ret))
-    }
+  if (draggable && subblock.props.connectDragPreview) {
+    return subblock.props.connectDragPreview(ret);
   }
 
-  return ret
-}
+  return ret;
+};
 
-export default Subblock
+export default Subblock;

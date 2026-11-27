@@ -9,9 +9,14 @@
     background-color: #045475;
 }
 
+/* The dragged subblock moves over the others: lift it above them and make
+   it opaque, so the gap where it will be dropped stays visible. */
 .volto-subblocks-wrapper .isDragging {
-    background-color: rgba(0, 0, 0, 0.05);
+    z-index: 10;
+    background-color: #fff;
     border-radius: 5px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    cursor: grabbing;
 }
 
 .volto-subblocks-wrapper .hovered {
@@ -39,6 +44,8 @@
 
 .volto-subblocks-wrapper .single-block .dragsubblock {
     position: absolute;
+    /* Above the content of the subblock, which may be positioned too. */
+    z-index: 1;
     top: -25px;
 
     left: 0;
@@ -60,6 +67,7 @@
 
 .volto-subblocks-wrapper .single-block .ui.basic.button.delete-button {
     position: absolute;
+    z-index: 1;
     top: -18px;
     left: 0;
 }
