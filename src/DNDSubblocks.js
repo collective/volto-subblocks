@@ -13,7 +13,8 @@ export const injectDNDSubblocks = (Component) => {
       transition,
       isDragging,
     } = useSortable({
-      id: props.data?.id || 'subblock-${props.index}',
+      // Must match the items of the SortableContext in withDNDContext.
+      id: props.data?.id || `subblock-${props.index}`,
       data: {
         type: 'subblock',
         index: props.index,
@@ -22,7 +23,9 @@ export const injectDNDSubblocks = (Component) => {
     });
 
     const style = {
-      transform: CSS.Transform.toString(transform),
+      // Only move: subblocks differ in height, and CSS.Transform would
+      // scale the dragged one to the size of the one below the pointer.
+      transform: CSS.Translate.toString(transform),
       transition,
     };
 
@@ -35,8 +38,17 @@ export const injectDNDSubblocks = (Component) => {
     };
 
     const connectDragPreview = (element) => {
+      // Keep the element's own ref: Subblock uses it to set subblock.node.
+      const { ref } = element;
       return React.cloneElement(element, {
-        ref: setNodeRef,
+        ref: (node) => {
+          setNodeRef(node);
+          if (typeof ref === 'function') {
+            ref(node);
+          } else if (ref) {
+            ref.current = node;
+          }
+        },
         style: {
           ...element.props.style,
           ...style,

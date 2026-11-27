@@ -16,7 +16,7 @@ import {
 const withDNDContext = (Component) => {
   const DNDComponent = (props) => {
     const items = (props.data?.subblocks || []).map(
-      (subblock, index) => subblock.id || 'subblock-${index}',
+      (subblock, index) => subblock.id || `subblock-${index}`,
     );
 
     const sensors = useSensors(
